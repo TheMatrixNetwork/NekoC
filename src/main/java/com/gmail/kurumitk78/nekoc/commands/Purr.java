@@ -5,6 +5,8 @@ import org.bukkit.command.*;
 import org.bukkit.entity.*;
 import com.gmail.kurumitk78.nekoc.NekoC;
 import org.bukkit.*;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class Purr implements CommandExecutor {
     public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
@@ -18,11 +20,21 @@ public class Purr implements CommandExecutor {
         final Player player = (Player) sender;
         if (NekoC.isNeko(player)) {
             final Player target = Bukkit.getServer().getPlayer(args[0]);
-            if (Config.GlobalCommandMessages) {
-                Bukkit.broadcastMessage(Config.PluginPrefix + ChatColor.LIGHT_PURPLE + ChatColor.YELLOW + player.getDisplayName() + ChatColor.LIGHT_PURPLE + " is purring on the feet of " + ChatColor.LIGHT_PURPLE + target.getName());
+            if (target == null) {
+                sender.sendMessage(Config.PluginPrefix + ChatColor.LIGHT_PURPLE + " Invalid Input");
+                return false;
+            }
+            if ((target.getWorld().equals(player.getWorld()) && player.getLocation().distance(target.getLocation()) < Config.PurrRange)) {
+                if (Config.GlobalCommandMessages) {
+                    Bukkit.broadcastMessage(Config.PluginPrefix + ChatColor.LIGHT_PURPLE + ChatColor.YELLOW + player.getDisplayName() + ChatColor.LIGHT_PURPLE + " is purring on the feet of " + ChatColor.LIGHT_PURPLE + target.getName());
+                } else {
+                    sender.sendMessage(Config.PluginPrefix + ChatColor.LIGHT_PURPLE + " you purr on " + ChatColor.YELLOW + target.getDisplayName());
+                    target.sendMessage(Config.PluginPrefix + ChatColor.LIGHT_PURPLE + " You hear the soft sound of " + ChatColor.YELLOW + player.getDisplayName() + ChatColor.LIGHT_PURPLE + "puring");
+                }
+                target.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 200, 3));
             } else {
-                sender.sendMessage(Config.PluginPrefix + ChatColor.LIGHT_PURPLE + " you purr on " + ChatColor.YELLOW + target.getDisplayName());
-                target.sendMessage(Config.PluginPrefix + ChatColor.LIGHT_PURPLE + " You hear the soft sound of " + ChatColor.YELLOW + player.getDisplayName() + ChatColor.LIGHT_PURPLE + "puring");
+                sender.sendMessage(Config.PluginPrefix + ChatColor.LIGHT_PURPLE + " You are too far away to purr at " + ChatColor.YELLOW + target.getName());
+                return false;
             }
         }
         return true;

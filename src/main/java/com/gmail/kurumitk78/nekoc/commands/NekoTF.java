@@ -16,24 +16,20 @@ public class NekoTF implements CommandExecutor {
         if (args.length == 0) {
             final Player commandTarget = ((Player) commandSender).getPlayer();
             if (!NekoC.isNeko(commandTarget)) {
-                NekoList.add(commandTarget.getUniqueId().toString());
-                Bukkit.getPluginManager().getPlugin("NekoC").getConfig().set("Nekos", NekoList);
+                NekoC.addNeko(commandTarget);
                 commandSender.sendMessage(Config.PluginPrefix + ChatColor.LIGHT_PURPLE + " Made you a neko!");
             } else {
-                NekoList.remove(commandTarget.getUniqueId().toString());
-                Bukkit.getPluginManager().getPlugin("NekoC").getConfig().set("Nekos", NekoList);
+                NekoC.removeNeko(commandTarget);
                 commandSender.sendMessage(Config.PluginPrefix + ChatColor.LIGHT_PURPLE + " You are no longer a neko!");
             }
         } else if (commandSender.hasPermission("nekoC.Admin")) {
             final Player commandTarget = Bukkit.getPlayer(args[0]);
             if (commandTarget.isValid()) {
                 if (!NekoC.isNeko(commandTarget)) {
-                    NekoList.add(Bukkit.getPlayer(args[0]).getUniqueId().toString());
-                    Bukkit.getPluginManager().getPlugin("NekoC").getConfig().set("Nekos", NekoList);
+                    NekoC.addNeko(commandTarget);
                     commandSender.sendMessage(Config.PluginPrefix + ChatColor.LIGHT_PURPLE + " Made " + ChatColor.YELLOW + commandTarget.getDisplayName() + ChatColor.LIGHT_PURPLE + " a neko!");
                 } else {
-                    NekoList.remove(Bukkit.getPlayer(args[0]).getUniqueId().toString());
-                    Bukkit.getPluginManager().getPlugin("NekoC").getConfig().set("Nekos", NekoList);
+                    NekoC.removeNeko(commandTarget);
                     commandSender.sendMessage(Config.PluginPrefix + ChatColor.LIGHT_PURPLE + " " + ChatColor.YELLOW + commandTarget.getDisplayName() + " is no longer a neko!");
                 }
             } else {

@@ -38,6 +38,14 @@ public class Config {
     public static double ClawDamage;
 
     public static boolean ClawDamageAdditive;
+
+    public static int LovebiteInfectChance;
+    public static int ClawInfectChance;
+    public static int ScratchInfectChance;
+    public static int ScratchRange;
+    public static int LovebiteRange;
+    public static int PurrRange;
+    public static int HissRange;
     public static boolean Purr;
     public static boolean Earscratch;
     public static boolean Attention;
@@ -117,6 +125,13 @@ public class Config {
         if(mainConfig.get("ConfigVersion").equals(1.2)){
             Bukkit.getLogger().log(Level.INFO, "[NekoC] Updating config to 1.3");
             mainConfig.set("Claw Damage Additive", false);
+            mainConfig.set("Claw Infect Chance", 2);
+            mainConfig.set("Lovebite Infect Chance", 40);
+            mainConfig.set("Scratch Infect Chance", 25);
+            mainConfig.set("Scratch Range", 4);
+            mainConfig.set("Lovebite Range", 4);
+            mainConfig.set("Purr Range", 4);
+            mainConfig.set("Hiss Range", 4);
             mainConfig.set("ConfigVersion", 1.3);
             mainConfig.save(configDirectory + mainConfigFileName);
         }
@@ -140,6 +155,13 @@ public class Config {
          ClawPoisonLevel = mainConfig.getInt("Claw Poison Level");
          ClawPoisonDuration = mainConfig.getInt("Claw Poison Duration");
          ClawPoisonChance = mainConfig.getInt("Claw Poison Chance");
+         LovebiteInfectChance = mainConfig.getInt("Lovebite Infect Chance");
+         ScratchInfectChance = mainConfig.getInt("Scratch Infect Chance");
+         ClawInfectChance = mainConfig.getInt("Claw Infect Chance");
+         ScratchRange = mainConfig.getInt("Scratch Range");
+         LovebiteRange = mainConfig.getInt("Lovebite Range");
+         PurrRange = mainConfig.getInt("Purr Range");
+         HissRange = mainConfig.getInt("Hiss Range");
          ClawDamage = mainConfig.getDouble("Claw Damage");
          ClawDamageAdditive = mainConfig.getBoolean("Claw Damage Additive");
          GlobalCommandMessages = mainConfig.getBoolean("GlobalCommandMessages");

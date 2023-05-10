@@ -11,6 +11,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
 
+import static com.gmail.kurumitk78.nekoc.Config.NekoList;
+
 
 public final class NekoC extends JavaPlugin {
 
@@ -84,6 +86,21 @@ public final class NekoC extends JavaPlugin {
     public static boolean isNeko(final Player p) {
         final String name = p.getUniqueId().toString();
         return Config.NekoList.contains(name);
+    }
+
+    public static void addNeko(final Player p) {
+        final String name = p.getUniqueId().toString();
+        NekoList.add(p.getUniqueId().toString());
+        Bukkit.getPluginManager().getPlugin("NekoC").getConfig().set("Nekos", NekoList);
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " parent add neko");
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " parent remove templar");
+    }
+
+    public static void removeNeko(final Player p) {
+        final String name = p.getUniqueId().toString();
+        NekoList.remove(p.getUniqueId().toString());
+        Bukkit.getPluginManager().getPlugin("NekoC").getConfig().set("Nekos", NekoList);
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p.getName() + " parent remove neko");
     }
 
 }
